@@ -17,6 +17,8 @@ CORE_INCLUDES = \
 
 # Source files
 SRC = \
+    Src/button.c \
+    Src/led.c \
     Src/main.c \
     Src/syscalls.c \
     Src/sysmem.c
@@ -68,6 +70,11 @@ $(TARGET).list: $(TARGET).elf
 
 $(TARGET).hex: $(TARGET).elf
 	$(OBJCOPY) -O ihex $< $@
+
+# Flash device
+flash: $(TARGET).bin
+	st-flash write $< 0x08000000
+	st-flash reset
 
 # Clean workspace
 clean: 
