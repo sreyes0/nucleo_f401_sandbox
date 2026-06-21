@@ -76,6 +76,10 @@ flash: $(TARGET).bin
 	st-flash write $< 0x08000000
 	st-flash reset
 
+# Erase device
+erase:
+	st-flash erase
+
 # Clean workspace
 clean: 
 	rm -f *.map *.elf *.bin *.list $(OBJS) $(DEPS)
