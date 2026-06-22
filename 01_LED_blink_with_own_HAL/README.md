@@ -4,6 +4,16 @@ LED blink with own HAL
 Bare-metal implementation of a program to turn on an LED with the press of
 a button.
 
+Next-Steps
+----------
+* Timebase module
+    * debouncing
+    * sensor polling
+    * timeouts
+    * scheduling
+* UART logging
+    * debug interface
+
 Build
 -----
 
