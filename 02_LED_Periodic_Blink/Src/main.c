@@ -49,5 +49,17 @@ int main(void) {
 
             timer_start(&timer, period);
         }
+
+        // Logic to modify blinking rate
+        ButtonEvent event = button_get_event();
+        if (event == BUTTON_RELEASE) {
+            period += 50;
+        } else if (event == BUTTON_LONG_PRESS) {
+            period -= 100;
+            // Bottom out at 20ms
+            if (period <= 0) {
+                period = 20;
+            }
+        }
 	}
 }

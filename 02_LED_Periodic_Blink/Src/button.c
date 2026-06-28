@@ -13,7 +13,7 @@
 
 
 #define DEBOUNCE_MS 20
-#define LONG_PRESS_MS 2000
+#define LONG_PRESS_MS 1000
 
 static volatile uint32_t t_last_edge = 0;
 static volatile uint32_t t_press = 0;
