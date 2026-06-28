@@ -23,9 +23,11 @@
 #include "main.h"
 #include "button.h"
 #include "led.h"
+#include "timer.h"
 
 
 int main(void) {
+    timer_init();
 
 	while (1) {
         ;
