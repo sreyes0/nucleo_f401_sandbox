@@ -1,2 +1,6 @@
 *.d
 *.o
+*.bin
+*.elf
+*.list
+*.map
