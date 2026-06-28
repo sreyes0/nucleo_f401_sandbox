@@ -7,6 +7,7 @@
 
 
 #include "button.h"
+#include "timer.h"
 
 #include "stm32f401xe.h"
 
@@ -26,8 +27,21 @@ void EXTI15_10_IRQHandler(void) {
 
 	// Check for EXTI13
 	if (EXTI->PR & EXTI_PR_PR13) {
-        // Removed logic since it depended on extern tick variable
-        // TODO: use timer module to debounce
+        uint32_t now = get_current_time_ms();
+
+        if ((now - t_last_edge) >= DEBOUNCE_MS) {
+            t_last_edge = now;
+
+            if (GPIOC->IDR & (1 << 13)) {
+                // Button is released (button is active-low)
+                e_release = 1;
+                t_release = now;
+            } else {
+                // Button is pressed
+                e_press = 1;
+                t_press = now;
+            }
+        }
 
 		EXTI->PR = EXTI_PR_PR13; // Clear bit programming to 1
 	}

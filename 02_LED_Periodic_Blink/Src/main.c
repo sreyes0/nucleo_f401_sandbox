@@ -18,18 +18,42 @@
 
 #include <stdint.h>
 
-#include "stm32f401xe.h"
-
 #include "main.h"
 #include "button.h"
 #include "led.h"
 #include "timer.h"
 
 
+volatile uint8_t led_activated = 1;
+
+
 int main(void) {
+	// Initialize drivers
     timer_init();
+	button_init();
+	led_init();
 
 	while (1) {
-        ;
+		ButtonEvent button_event = button_get_event();
+		switch (button_event) {
+		case BUTTON_LONG_PRESS:
+			led_set_state(LED_OFF);
+			led_activated = !led_activated;
+			break;
+		case BUTTON_PRESS:
+			if (led_activated) {
+				led_set_state(LED_ON);
+			}
+			break;
+		case BUTTON_RELEASE:
+			if (led_activated) {
+				led_set_state(LED_OFF);
+			}
+			break;
+		case BUTTON_IDLE:
+		default:
+			// do-nothing
+			break;
+		}
 	}
 }
