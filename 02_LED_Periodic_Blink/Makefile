@@ -22,7 +22,7 @@ SRC = \
     Src/main.c \
     Src/syscalls.c \
     Src/sysmem.c \
-    Src/timer.c \
+    Src/timebase.c \
 
 ASM = Startup/startup_stm32f401retx.s
 

@@ -21,7 +21,7 @@
 #include "main.h"
 #include "button.h"
 #include "led.h"
-#include "timer.h"
+#include "timebase.h"
 
 
 volatile uint8_t led_activated = 1;
@@ -29,7 +29,7 @@ volatile uint8_t led_activated = 1;
 
 int main(void) {
 	// Initialize drivers
-    timer_init();
+    timebase_init();
 	button_init();
 	led_init();
 

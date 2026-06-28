@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "timebase.h"
 
 #include "stm32f401xe.h"
 
@@ -11,7 +11,7 @@ void SysTick_Handler(void) {
     tick++;
 }
 
-void timer_init() {
+void timebase_init() {
     SysTick->LOAD = 16000 - 1;  // 1ms
     SysTick->VAL = 0;
     SysTick->CTRL = SysTick_CTRL_ENABLE_Msk
