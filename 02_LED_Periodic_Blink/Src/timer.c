@@ -18,3 +18,7 @@ void timer_init() {
                   | SysTick_CTRL_TICKINT_Msk
                   | SysTick_CTRL_CLKSOURCE_Msk;
 }
+
+uint32_t get_current_time_ms() {
+    return tick;
+}
