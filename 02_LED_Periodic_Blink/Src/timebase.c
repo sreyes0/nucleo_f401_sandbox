@@ -22,3 +22,8 @@ void timebase_init() {
 uint32_t get_current_time_ms() {
     return tick;
 }
+
+bool period_elapsed(const timer_t *timer) {
+    const uint32_t now = get_current_time_ms();
+    return ((now - timer->start) >= timer->period);
+}

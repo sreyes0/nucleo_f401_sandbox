@@ -19,41 +19,31 @@
 #include <stdint.h>
 
 #include "main.h"
-#include "button.h"
 #include "led.h"
 #include "timebase.h"
 
 
-volatile uint8_t led_activated = 1;
+volatile uint8_t led_activated = 0;
 
 
 int main(void) {
 	// Initialize drivers
     timebase_init();
-	button_init();
 	led_init();
 
+    timer_t timer = { get_current_time_ms(), 500 }; // 500ms
+
 	while (1) {
-		ButtonEvent button_event = button_get_event();
-		switch (button_event) {
-		case BUTTON_LONG_PRESS:
-			led_set_state(LED_OFF);
-			led_activated = !led_activated;
-			break;
-		case BUTTON_PRESS:
-			if (led_activated) {
-				led_set_state(LED_ON);
-			}
-			break;
-		case BUTTON_RELEASE:
-			if (led_activated) {
-				led_set_state(LED_OFF);
-			}
-			break;
-		case BUTTON_IDLE:
-		default:
-			// do-nothing
-			break;
-		}
+        if (period_elapsed(&timer)) {
+            if (led_activated) {
+                led_set_state(LED_OFF);
+                led_activated = 0;
+            } else {
+                led_set_state(LED_ON);
+                led_activated = 1;
+            }
+
+            timer.start = get_current_time_ms();
+        }
 	}
 }

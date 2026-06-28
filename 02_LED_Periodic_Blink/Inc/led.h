@@ -19,5 +19,6 @@ typedef enum {
 
 void led_init();
 void led_set_state(LedState state);
+void led_toggle();
 
 #endif /* LED_H_ */
