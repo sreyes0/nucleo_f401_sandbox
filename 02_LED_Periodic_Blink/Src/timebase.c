@@ -23,7 +23,12 @@ uint32_t get_current_time_ms() {
     return tick;
 }
 
-bool period_elapsed(const timer_t *timer) {
+void timer_start(timer_t *timer, const uint32_t length) {
+    timer->start = get_current_time_ms();
+    timer->length = length;
+}
+
+bool timer_expired(const timer_t *timer) {
     const uint32_t now = get_current_time_ms();
-    return ((now - timer->start) >= timer->period);
+    return ((now - timer->start) >= timer->length);
 }

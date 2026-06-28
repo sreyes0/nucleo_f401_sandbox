@@ -19,6 +19,7 @@
 #include <stdint.h>
 
 #include "main.h"
+#include "button.h"
 #include "led.h"
 #include "timebase.h"
 
@@ -30,11 +31,14 @@ int main(void) {
 	// Initialize drivers
     timebase_init();
 	led_init();
+    button_init();
 
-    timer_t timer = { get_current_time_ms(), 500 }; // 500ms
+    timer_t timer;
+    int32_t period = 200;  //ms
+    timer_start(&timer, period);
 
 	while (1) {
-        if (period_elapsed(&timer)) {
+        if (timer_expired(&timer)) {
             if (led_activated) {
                 led_set_state(LED_OFF);
                 led_activated = 0;
@@ -43,7 +47,7 @@ int main(void) {
                 led_activated = 1;
             }
 
-            timer.start = get_current_time_ms();
+            timer_start(&timer, period);
         }
 	}
 }
